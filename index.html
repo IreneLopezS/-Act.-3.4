@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador Léxico y Sintáctico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Analizador Léxico y Sintáctico</h1>
+        <form method="POST">
+            <textarea name="text" placeholder="Inserta el código aquí">{{ text }}</textarea>
+            <button type="submit">Analizar</button>
+        </form>
+
+        {% if tokens %}
+            <h2>Resultados del Análisis Léxico</h2>
+            <table>
+                <tr>
+                    <th>Línea</th>
+                    <th>Token</th>
+                    <th>PR</th>
+                    <th>ID</th>
+                    <th>VARIABLE</th>
+                    <th>PA</th>
+                    <th>PC</th>
+                    <th>LLA</th>
+                    <th>LLC</th>
+                    <th>COMA</th>
+                    <th>PC</th>
+                    <th>COMILLAS</th>
+                    <th>CADENA</th>
+                </tr>
+                {% for token in tokens %}
+                <tr>
+                    <td>{{ token.lineno }}</td>
+                    <td>{{ token.value }}</td>
+                    <td>{% if token.type == 'PR' %}X{% endif %}</td>
+                    <td>{% if token.type == 'ID' %}X{% endif %}</td>
+                    <td>{% if token.type == 'VARIABLE' %}X{% endif %}</td>
+                    <td>{% if token.type == 'PA' %}X{% endif %}</td>
+                    <td>{% if token.type == 'PC' %}X{% endif %}</td>
+                    <td>{% if token.type == 'LLA' %}X{% endif %}</td>
+                    <td>{% if token.type == 'LLC' %}X{% endif %}</td>
+                    <td>{% if token.type == 'COMA' %}X{% endif %}</td>
+                    <td>{% if token.type == 'PUNTOCOMA' %}X{% endif %}</td>
+                    <td>{% if token.type == 'COMILLAS' %}X{% endif %}</td>
+                    <td>{% if token.type == 'CADENA' %}X{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+
+        {% if syntax_result %}
+            <h2>Resultado del Análisis Sintáctico</h2>
+            <p>{{ syntax_result }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
